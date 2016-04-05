@@ -20,7 +20,10 @@ android {
 }
 
 repositories {
-    mavenCentral()
+    //mavenCentral()
+    maven {
+        url 'https://dl.bintray.com/vsvankhede/maven/'
+    }
     flatDir {
         dirs 'libs'
     }
@@ -38,4 +41,7 @@ dependencies {
     compile 'com.spotify.sdk:spotify-player:1.0.0-beta12@aar'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
+    compile 'com.vstechlab.easyfonts:easyfonts:1.0.0'
+    compile 'com.google.code.gson:gson:2.6'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

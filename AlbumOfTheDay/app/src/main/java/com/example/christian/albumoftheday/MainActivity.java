@@ -2,8 +2,13 @@ package com.example.christian.albumoftheday;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -14,14 +19,35 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
+import com.squareup.picasso.Picasso;
+import com.vstechlab.easyfonts.EasyFonts;
 
 public class MainActivity extends Activity implements
-        PlayerNotificationCallback, ConnectionStateCallback {
+
+        PlayerNotificationCallback, ConnectionStateCallback, View.OnClickListener {
+
+    public ImageView artwork;
+    public TextView track;
+    public TextView artist;
+    public TextView album;
+    public TextView year;
+
+    public ServeAsyncTask serveAsyncTask = new ServeAsyncTask();
+    public ComeAsyncTask comeAsyncTask = new ComeAsyncTask();
+    public JuicyAsyncTask juicyAsyncTask = new JuicyAsyncTask();
+
+    private boolean mIsPlaying = true;
+    private Button mPlayButton;
+    private Button mForwardButton;
 
     // TODO: Replace with your client ID
     private static final String CLIENT_ID = "b9fafb55d91a467e9741ebc5e4e3e6da";
     // TODO: Replace with your redirect URI
     private static final String REDIRECT_URI = "albumoftheday://callback";
+
+    private static final String WEB_CLIENT_ID = "b91850f53bb543a187617c4d2c1e5491";
+
+    private static final String WEB_REDIRECT_URI = "http://localhost:8888/callback";
 
     private Player mPlayer;
     private static final int REQUEST_CODE = 1337;
@@ -38,7 +64,52 @@ public class MainActivity extends Activity implements
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        TextView title = (TextView) findViewById(R.id.title_text);
+        title.setTypeface(EasyFonts.captureIt(this));
+
+        track = (TextView) findViewById(R.id.track_name);
+        artist = (TextView) findViewById(R.id.artist_name);
+        album = (TextView) findViewById(R.id.album_name);
+        year = (TextView) findViewById(R.id.album_year);
+        artwork = (ImageView) findViewById(R.id.album_art);
+
+        mPlayButton = (Button) findViewById(R.id.play_button);
+          mPlayButton.setOnClickListener(this);
+        setButtonText();
+
+        mForwardButton = (Button) findViewById(R.id.forward_button);
+        mForwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (serveAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+                    serveAsyncTask.fini;
+                }
+                if (comeAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+
+                }
+                if (juicyAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+
+                }
+            }
+        });
+
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        Intent i = new Intent(this, PlayerNotificationCallback.class);
+//        if (mIsPlaying) {
+//            startService(i);
+//        } else {
+//            stopService(i);
+//        }
+//        mIsPlaying = !mIsPlaying;
+//        setButtonText();
+//
+//    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -53,10 +124,9 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onInitialized(Player player) {
                         mPlayer = player;
-                        mPlayer.addConnectionStateCallback(MainActivity.this);
-                        mPlayer.addPlayerNotificationCallback(MainActivity.this);
-                        mPlayer.play("spotify:track:2TpxZ7JUBn3uw46aR7qd6V");
                     }
+
+
 
                     @Override
                     public void onError(Throwable throwable) {
@@ -65,6 +135,28 @@ public class MainActivity extends Activity implements
                 });
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent i = new Intent(this, PlayerNotificationCallback.class);
+        if (mIsPlaying) {
+            startService(i);
+            serveAsyncTask.execute();
+            comeAsyncTask.execute();
+            juicyAsyncTask.execute();
+        } else {
+            stopService(i);
+            mPlayer.pause();
+        }
+        mIsPlaying = !mIsPlaying;
+        setButtonText();
+
+    }
+
+
+    void setButtonText() {
+        mPlayButton.setText(mIsPlaying ? "PLAY" : "PAUSE");
     }
 
     @Override
@@ -107,4 +199,42 @@ public class MainActivity extends Activity implements
         Spotify.destroyPlayer(this);
         super.onDestroy();
     }
+
+    public class ServeAsyncTask extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            mPlayer.addConnectionStateCallback(MainActivity.this);
+            mPlayer.addPlayerNotificationCallback(MainActivity.this);
+            mPlayer.play("spotify:track:1Ic9pKxGSJGM0LKeqf6lGe");
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            track.setText("All Apologies");
+            artist.setText("Nirvana");
+            album.setText("In Utero");
+            year.setText("1993");
+            Picasso.with(MainActivity.this).load("https://i.scdn.co/image/85ed8e478b36c6d65726b02dccedc32a7620dcce").into(artwork);;
+        }
+    }
+
+    public class ComeAsyncTask extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            return null;
+        }
+    }
+
+    public class JuicyAsyncTask extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            return null;
+        }
+    }
+
+
 }

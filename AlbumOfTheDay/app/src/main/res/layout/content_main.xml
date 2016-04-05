@@ -13,7 +13,94 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
+        android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Album of the Day"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:typeface="sans"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/album_art"
+        android:layout_below="@id/title_text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/track_name"
+        android:text="Song"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/album_art"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/artist_name"
+        android:text="Artist"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/track_name"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/album_name"
+        android:text="Album"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/artist_name"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/album_year"
+        android:text="Year"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/album_name"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:button="@null"
+        android:background="@drawable/checkbox_selector"
+        android:id="@+id/fav_button"
+        android:gravity="center"
+        android:textSize="0sp"
+        android:padding="30dp"
+        android:scaleType="centerCrop"
+        android:checked="false"
+        android:layout_alignTop="@+id/play_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#212121"
+        android:textColor="#ff0000"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/forward_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#212121"
+        android:textColor="#ff0000"
+        android:textStyle="bold" />
 </RelativeLayout>
