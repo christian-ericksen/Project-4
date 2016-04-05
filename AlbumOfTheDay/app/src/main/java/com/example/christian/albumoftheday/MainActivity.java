@@ -148,7 +148,7 @@ public class MainActivity extends Activity implements
             comeAsyncTask.execute();
             juicyAsyncTask.execute();
         } else {
-            stopService(i);
+            //stopService(i);
             mPlayer.pause();
         }
         mIsPlaying = !mIsPlaying;

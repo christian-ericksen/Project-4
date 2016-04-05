@@ -16,12 +16,13 @@
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Album of the Day"
+        android:text="@string/title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
         android:typeface="sans"
         android:textSize="30sp" />
+
 
     <CheckBox
         android:layout_width="70dp"
@@ -31,25 +32,27 @@
         android:id="@+id/fav_button"
         android:gravity="center"
         android:textSize="0sp"
-        android:padding="30dp"
+        android:layout_margin="5dp"
         android:scaleType="centerCrop"
         android:checked="false"
         android:layout_below="@+id/title_text"
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="5dp"
         android:layout_centerHorizontal="true"
-        android:padding="30dp"
         android:id="@+id/album_art"
-        android:layout_below="@id/fav_button"/>
+        android:layout_below="@id/fav_button"
+        android:contentDescription="@string/artwork"
+        android:elevation="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/track_name"
-        android:text="Song"
+        android:text=""
         android:textColor="#ffffff"
         android:layout_below="@+id/album_art"
         android:layout_centerHorizontal="true" />
@@ -57,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/artist_name"
-        android:text="Artist"
+        android:text=""
         android:textColor="#ffffff"
         android:layout_below="@+id/track_name"
         android:layout_centerHorizontal="true" />
@@ -65,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/album_name"
-        android:text="Album"
+        android:text=""
         android:textColor="#ffffff"
         android:layout_below="@+id/artist_name"
         android:layout_centerHorizontal="true" />
@@ -73,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/album_year"
-        android:text="Year"
+        android:text=""
         android:textColor="#ffffff"
         android:layout_below="@+id/album_name"
         android:layout_centerHorizontal="true" />
@@ -84,12 +87,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@android:drawable/ic_media_play"
-        android:layout_marginBottom="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:background="#212121"
         android:textColor="#ff0000"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/fav_button"
+        android:layout_toStartOf="@+id/fav_button" />
 
     <Button
         android:id="@+id/forward_button"
@@ -99,8 +103,10 @@
         android:src="@android:drawable/ic_media_next"
         android:background="#212121"
         android:textColor="#ff0000"
+        android:text="@string/forward"
         android:textStyle="bold"
-        android:layout_alignTop="@+id/play_button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/title_text"
+        android:layout_alignEnd="@+id/title_text" />
 </RelativeLayout>
