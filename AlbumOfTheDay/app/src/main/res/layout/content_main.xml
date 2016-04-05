@@ -23,12 +23,27 @@
         android:typeface="sans"
         android:textSize="30sp" />
 
+    <CheckBox
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:button="@null"
+        android:background="@drawable/checkbox_selector"
+        android:id="@+id/fav_button"
+        android:gravity="center"
+        android:textSize="0sp"
+        android:padding="30dp"
+        android:scaleType="centerCrop"
+        android:checked="false"
+        android:layout_below="@+id/title_text"
+        android:layout_centerHorizontal="true" />
+
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
+        android:padding="30dp"
         android:id="@+id/album_art"
-        android:layout_below="@id/title_text"/>
+        android:layout_below="@id/fav_button"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,21 +78,6 @@
         android:layout_below="@+id/album_name"
         android:layout_centerHorizontal="true" />
 
-    <CheckBox
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:button="@null"
-        android:background="@drawable/checkbox_selector"
-        android:id="@+id/fav_button"
-        android:gravity="center"
-        android:textSize="0sp"
-        android:padding="30dp"
-        android:scaleType="centerCrop"
-        android:checked="false"
-        android:layout_alignTop="@+id/play_button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <Button
         android:id="@+id/play_button"
         android:layout_width="wrap_content"
@@ -96,11 +96,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@android:drawable/ic_media_play"
-        android:layout_marginBottom="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:src="@android:drawable/ic_media_next"
         android:background="#212121"
         android:textColor="#ff0000"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/play_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

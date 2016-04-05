@@ -75,21 +75,25 @@ public class MainActivity extends Activity implements
         artwork = (ImageView) findViewById(R.id.album_art);
 
         mPlayButton = (Button) findViewById(R.id.play_button);
-          mPlayButton.setOnClickListener(this);
+        mPlayButton.setOnClickListener(this);
         setButtonText();
 
         mForwardButton = (Button) findViewById(R.id.forward_button);
         mForwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (serveAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
-                    serveAsyncTask.fini;
+                if (serveAsyncTask.getStatus() != AsyncTask.Status.FINISHED) {
+                    serveAsyncTask.cancel(true);
+                    comeAsyncTask.execute();
                 }
-                if (comeAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
 
+                if (comeAsyncTask.getStatus() != AsyncTask.Status.FINISHED) {
+                    comeAsyncTask.cancel(true);
+                    juicyAsyncTask.execute();
                 }
-                if (juicyAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
 
+                if (juicyAsyncTask.getStatus() != AsyncTask.Status.FINISHED) {
+                    juicyAsyncTask.cancel(true);
                 }
             }
         });
@@ -110,7 +114,6 @@ public class MainActivity extends Activity implements
 //    }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -125,7 +128,6 @@ public class MainActivity extends Activity implements
                     public void onInitialized(Player player) {
                         mPlayer = player;
                     }
-
 
 
                     @Override
@@ -200,10 +202,9 @@ public class MainActivity extends Activity implements
         super.onDestroy();
     }
 
-    public class ServeAsyncTask extends AsyncTask {
-
+    public class ServeAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
-        protected Object doInBackground(Object[] params) {
+        protected Void doInBackground(Void... params) {
             mPlayer.addConnectionStateCallback(MainActivity.this);
             mPlayer.addPlayerNotificationCallback(MainActivity.this);
             mPlayer.play("spotify:track:1Ic9pKxGSJGM0LKeqf6lGe");
@@ -216,25 +217,45 @@ public class MainActivity extends Activity implements
             artist.setText("Nirvana");
             album.setText("In Utero");
             year.setText("1993");
-            Picasso.with(MainActivity.this).load("https://i.scdn.co/image/85ed8e478b36c6d65726b02dccedc32a7620dcce").into(artwork);;
+            Picasso.with(MainActivity.this).load("https://i.scdn.co/image/85ed8e478b36c6d65726b02dccedc32a7620dcce").into(artwork);
         }
     }
 
-    public class ComeAsyncTask extends AsyncTask {
-
+    public class ComeAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
-        protected Object doInBackground(Object[] params) {
+        protected Void doInBackground(Void... params) {
+            mPlayer.addConnectionStateCallback(MainActivity.this);
+            mPlayer.addPlayerNotificationCallback(MainActivity.this);
+            mPlayer.play("spotify:track:2EqlS6tkEnglzr7tkKAAYD");
             return null;
         }
-    }
-
-    public class JuicyAsyncTask extends AsyncTask {
 
         @Override
-        protected Object doInBackground(Object[] params) {
-            return null;
+        protected void onPreExecute() {
+            track.setText("Come Together");
+            artist.setText("The Beatles");
+            album.setText("Abbey Road");
+            year.setText("1969");
+            Picasso.with(MainActivity.this).load("https://i.scdn.co/image/31327f9fe6b6e0bd6e431a4add681397e95c6329").into(artwork);
         }
     }
 
+    public class JuicyAsyncTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            mPlayer.addConnectionStateCallback(MainActivity.this);
+            mPlayer.addPlayerNotificationCallback(MainActivity.this);
+            mPlayer.play("spotify:track:3xX9hoGEq1EuMGWZl8LQL1");
+            return null;
+        }
 
+        @Override
+        protected void onPreExecute() {
+            track.setText("Juicy");
+            artist.setText("The Notorious B.I.G");
+            album.setText("Ready To Die");
+            year.setText("1994");
+            Picasso.with(MainActivity.this).load("https://i.scdn.co/image/987bfedb8be463a19340eebbbc2998694708616c").into(artwork);
+        }
+    }
 }
